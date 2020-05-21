@@ -29,8 +29,6 @@ class Intro(Scene):
         self.wait(10)
         self.play(FadeOut(items),
         FadeOut(self.title))
-
-
     def visual(self):
         linkedListQuestion = TextMobject(
             "What does a ", "Linked List ", "look like?"
@@ -60,8 +58,16 @@ class Intro(Scene):
                 typeOf = TextMobject("Tail").set_color(BLACK)
                 typeOf.move_to(squares[i].get_top()+DOWN*0.3)
                 self.play(Write(typeOf))
-
-
+        tail = squares[len(squares)-1]
+        head = squares[0]
+        self.wait(3)
+        head.set_color(MAROON_C)
+        self.wait(3)
+        head.set_color(MAROON_B)
+        tail.set_color(MAROON_C)
+        self.wait(3)
+        tail.set_color(MAROON_B)
+        self.wait(8)
     def add_title(self,string):
         title = TextMobject(string)
         title.scale(1.5)
@@ -70,7 +76,6 @@ class Intro(Scene):
         h_line.next_to(title, DOWN)
         self.h_line = h_line
         self.title = title
-
     def createBulletPoint(self, item_string):
         item = TextMobject("$\\cdot$ %s" % item_string)
         if not hasattr(self, "items"):
@@ -80,11 +85,8 @@ class Intro(Scene):
             item.next_to(self.items, DOWN, MED_LARGE_BUFF, LEFT)
             self.items.add(item)
         return item
-
     def createNode(self,amount):
-
         square = Square(fill_color=MAROON_B, fill_opacity=1, color=MAROON_B)
-
         square.shift(amount*LEFT)
         return square
 
