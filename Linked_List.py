@@ -47,14 +47,19 @@ class Intro(Scene):
                 break
             value = TextMobject(vals[i]).set_color(BLACK)
             value.move_to(squares[i].get_top()+DOWN)
-
             self.play(FadeIn(squares[i]), Write(value))
             if i == 0:
                 typeOf = TextMobject("Head").set_color(BLACK)
-                typeOf.move_to(squares[i].get_top()+DOWN*0.5)
+                typeOf.move_to(squares[i].get_top()+DOWN*0.3)
                 self.play(Write(typeOf))
             if not(len(squares)-1 == i):
                 a = Arrow(squares[i], squares[i+1])
+                a.shift(DOWN)
+                self.play(FadeIn(a))
+            else:
+                typeOf = TextMobject("Tail").set_color(BLACK)
+                typeOf.move_to(squares[i].get_top()+DOWN*0.3)
+                self.play(Write(typeOf))
 
 
     def add_title(self,string):
