@@ -16,7 +16,7 @@ class Intro(Scene):
         self.wait(2)
         self.play(ApplyMethod(linkedListQuestion.shift, 7*UP))
     def bulletPoints(self):
-        self.add_title("Linked List")
+        self.add_title("Linked Lists")
         self.play(FadeIn(self.title))
         items = VGroup(*list(map(self.createBulletPoint,
         ["are sets of data connected through links",
@@ -39,19 +39,23 @@ class Intro(Scene):
         self.play(Write(linkedListQuestion))
         self.wait(2)
         self.play(ApplyMethod(linkedListQuestion.shift, 3*UP))
-
-        squares = list(map(self.createSquare, 
-        [6,3,0,-3,-6,-9], [LEFT, LEFT, LEFT, LEFT, LEFT, LEFT]))
+        squares = list(map(self.createNode, 
+        [6,3,0,-3,-6]))
+        vals = ["10", "32", "2", "5", "8"]
         for i in range(0,len(squares)):
-            if len(squares)-1 == i:
+            if len(squares) == i:
                 break
-            if len(squares)-2 == i:
-                self.play(FadeIn(squares[i]))
-            else:
+            value = TextMobject(vals[i]).set_color(BLACK)
+            value.move_to(squares[i].get_top()+DOWN)
+
+            self.play(FadeIn(squares[i]), Write(value))
+            if i == 0:
+                typeOf = TextMobject("Head").set_color(BLACK)
+                typeOf.move_to(squares[i].get_top()+DOWN*0.5)
+                self.play(Write(typeOf))
+            if not(len(squares)-1 == i):
                 a = Arrow(squares[i], squares[i+1])
-                a.shift(DOWN)
-                self.play(FadeIn(squares[i]))
-                self.play(FadeIn(a))
+
 
     def add_title(self,string):
         title = TextMobject(string)
@@ -72,9 +76,11 @@ class Intro(Scene):
             self.items.add(item)
         return item
 
-    def createSquare(self, shift, amount):
+    def createNode(self,amount):
+
         square = Square(fill_color=MAROON_B, fill_opacity=1, color=MAROON_B)
-        square.shift(amount*shift)
+
+        square.shift(amount*LEFT)
         return square
 
 
